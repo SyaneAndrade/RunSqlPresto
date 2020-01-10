@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="RunSqlPresto:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/RunSqlPresto_jar</output-path>
+    <root id="archive" name="RunSqlPresto.jar">
+      <element id="module-output" name="RunSqlPresto" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/presto-jdbc-327.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
