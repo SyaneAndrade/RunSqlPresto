@@ -1,5 +1,7 @@
 package br.com.lab.jdbc.presto.sql;
 
+import br.com.lab.jdbc.sql.TypeStatement;
+
 import java.sql.SQLException;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -24,15 +26,21 @@ public class JdbcPrestoRun {
         stmt = con.createStatement();
     }
 
-    public  void executeQuery(String query) {
+    public  void executeQuery(TypeStatement tipoQuery) {
 
-        ResultSet set = null;
+        ResultSet res = null;
 
         try {
-            System.out.println(query);
-            ResultSet res = stmt.executeQuery(query);
+            System.out.println(tipoQuery.statement);
+            if(tipoQuery.update) {
+                System.out.print("Linhas processadas: ");
+                System.out.println(stmt.executeUpdate(tipoQuery.statement));
+            }
+            else {
+                res = stmt.executeQuery(tipoQuery.statement);
             while (res.next()) {
                 System.out.println(res.getString(1));
+            }
             }
         }
         catch (SQLException e){
