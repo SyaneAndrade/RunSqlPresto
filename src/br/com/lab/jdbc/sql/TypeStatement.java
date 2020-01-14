@@ -4,11 +4,12 @@ public class TypeStatement {
 
     public String statement;
     public Boolean update;
+    public Boolean select;
 
     public TypeStatement(String query){
-        String[] verifica = query.split(" ");
-        update = (verifica[0].toUpperCase().contains("SELECT") || verifica[0].toUpperCase().contains("SHOW")) ?
-                Boolean.FALSE : Boolean.TRUE;
+        String[] verify = query.split(" ");
+        update = !(verify[0].toUpperCase().contains("SELECT") || verify[0].toUpperCase().contains("SHOW"));
+        select = (verify[0].toUpperCase().contains("SELECT"));
         statement = query;
     }
 }

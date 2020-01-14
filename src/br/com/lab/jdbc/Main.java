@@ -2,7 +2,6 @@ package br.com.lab.jdbc;
 
 import java.io.IOException;
 import java.sql.*;
-import java.util.*;
 
 import br.com.lab.jdbc.io.FileIO;
 import br.com.lab.jdbc.presto.sql.JdbcPrestoRun;
@@ -36,14 +35,14 @@ public class Main {
         //Criando parse do arquivo que estão com as querys
         FileIO qrio_presto = new FileIO();
 
-        String conteudoFile = qrio_presto.lerArquivo(file);
+        String contentFile = qrio_presto.readFile(file);
 
-        String[] querys = qrio_presto.criaArrayQuerys(conteudoFile);
+        String[] querys = qrio_presto.makeArrayQuerys(contentFile);
 
         // Execução das querys
         for (String query: querys){
             TypeStatement tipoQuery = new TypeStatement(query);
-            jdbcprestorun.executeQuery(tipoQuery);
+            jdbcprestorun.executeStatement(tipoQuery);
         }
     }
 }

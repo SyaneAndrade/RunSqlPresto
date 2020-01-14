@@ -14,7 +14,7 @@ public class JdbcPrestoRun {
     private static Connection con;
     public Statement stmt;
 
-    public JdbcPrestoRun(String caminhoPresto) throws SQLException {
+    public JdbcPrestoRun(String urlPresto) throws SQLException {
         try {
             Class.forName(driverName);
         } catch (ClassNotFoundException e) {
@@ -22,25 +22,35 @@ public class JdbcPrestoRun {
             e.printStackTrace();
             System.exit(1);
         }
-        con = DriverManager.getConnection(caminhoPresto);
+        con = DriverManager.getConnection(urlPresto);
         stmt = con.createStatement();
     }
 
-    public  void executeQuery(TypeStatement tipoQuery) {
+    public  void execute(TypeStatement typeQuery) {
 
         ResultSet res = null;
 
         try {
-            System.out.println(tipoQuery.statement);
-            if(tipoQuery.update) {
+            System.out.println(typeQuery.statement);
+            if(typeQuery.update) {
                 System.out.print("Linhas processadas: ");
-                System.out.println(stmt.executeUpdate(tipoQuery.statement));
+                System.out.println(stmt.executeUpdate(typeQuery.statement));
             }
-            else {
-                res = stmt.executeQuery(tipoQuery.statement);
-            while (res.next()) {
-                System.out.println(res.getString(1));
+            else if(typeQuery.select) {
+                res = stmt.executeQuery(typeQuery.statement);
+                System.out.println(res.getMetaData().getColumnCount());
+                while (res.next()) {
+                    for(int i=1; i < res.getMetaData().getColumnCount(); i++){
+                        System.out.print(res.getString(i) + " ");
+                    }
+                    System.out.println(" ");
+                }
             }
+            else{
+                res = stmt.executeQuery(typeQuery.statement);
+                while (res.next()) {
+                    System.out.println(res.getString(1));
+                }
             }
         }
         catch (SQLException e){
