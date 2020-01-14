@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FileIO {
 
@@ -28,9 +30,16 @@ public class FileIO {
         return makeString.toString();
     }
 
-    public String[] makeArrayQuerys(String stringcriada){
-        String[] querys;
-        querys = stringcriada.split(";");
+    public List<String> makeArrayQuerys(String stringcriada){
+
+        String[] querys_;
+        querys_ = stringcriada.split(";");
+
+        List<String> querys = new ArrayList<>();
+        for(String query: querys_){
+            querys.add(query);
+        }
+        querys.remove(querys.size() -1);
         return querys;
     }
 }

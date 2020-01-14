@@ -2,6 +2,7 @@ package br.com.lab.jdbc;
 
 import java.io.IOException;
 import java.sql.*;
+import java.util.List;
 
 import br.com.lab.jdbc.io.FileIO;
 import br.com.lab.jdbc.presto.sql.JdbcPrestoRun;
@@ -37,12 +38,12 @@ public class Main {
 
         String contentFile = qrio_presto.readFile(file);
 
-        String[] querys = qrio_presto.makeArrayQuerys(contentFile);
+        List<String> querys = qrio_presto.makeArrayQuerys(contentFile);
 
         // Execução das querys
         for (String query: querys){
             TypeStatement tipoQuery = new TypeStatement(query);
-            jdbcprestorun.executeStatement(tipoQuery);
+            jdbcprestorun.execute(tipoQuery);
         }
     }
 }
