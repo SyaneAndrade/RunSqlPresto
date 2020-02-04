@@ -39,7 +39,8 @@ public class FileIO {
         for(String query: querys_){
             querys.add(query);
         }
-        querys.remove(querys.size() -1);
+        if(querys.get(querys.size() - 1).equals(""))
+            querys.remove(querys.size() -1);
         return querys;
     }
 }

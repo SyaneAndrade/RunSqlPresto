@@ -1,12 +1,16 @@
 package br.com.lab.jdbc.presto.sql;
 
 import br.com.lab.jdbc.sql.TypeStatement;
-
+import br.com.lab.jdbc.lib.Utilities;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.DriverManager;
+import com.opencsv.CSVWriter;
+
 
 public class JdbcPrestoRun {
 
@@ -38,6 +42,7 @@ public class JdbcPrestoRun {
             }
             else if(typeQuery.select) {
                 res = stmt.executeQuery(typeQuery.statement);
+                Utilities.writeResultCSV(res, typeQuery.statement);
                 System.out.println(res.getMetaData().getColumnCount());
                 while (res.next()) {
                     for(int i=1; i < res.getMetaData().getColumnCount(); i++){
@@ -53,7 +58,7 @@ public class JdbcPrestoRun {
                 }
             }
         }
-        catch (SQLException e){
+        catch (SQLException | IOException e){
             e.printStackTrace();
         }
     }
